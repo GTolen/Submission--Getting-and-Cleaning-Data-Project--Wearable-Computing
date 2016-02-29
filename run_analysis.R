@@ -14,8 +14,6 @@ setwd("C:/Gary/Test/WearableComputing/Work")
 features<-read.table("features.txt")
 class(features)
 
-
-
 # Read the data files and capture the information
 # in a R data frame:
 # act_labels: activity_labels.txt (Values are from 1 to 6, indicates activity name)
@@ -69,7 +67,6 @@ y_test<-read.table("y_test.txt")
 # needed for producing output file which are not availble from the X_train.txt and X_test.txt files.
 
 subject_train<-read.table("subject_train.txt")
-
 
 ### TEST GROUP Information data ###
 # Number of records and columns checked using dim.data.frame() to check for functionality
@@ -144,7 +141,6 @@ x_test<-cbind(x_test,subject_test)
 x_train<-cbind(x_train,y_train)
 x_test<-cbind(x_test,y_test)
 
-
 # Rename appended column to Subject_id and activity
 
 names(x_train)[562]<-"subject_id"
@@ -177,26 +173,9 @@ names(AllData)[70]<-"desc_activity"
 # #5 creates a second, independent tidy data set with the average 
 # of each variable for each activity and each subject after (1) to (4).
 # Thus, the mean will be calculated from Columns 2 to 67.
-#
-# Resulting data frame is TidySet:
-# (a) The first six rows contain the average of the variables per activity.
-#     This is also the information contained in the ActivitySet data frame.
-# (b) The rows that follow contain the average of the variables per subject.
-#     This is also the information contained in the SubjectSet data frame.
 ###############################################################################
 
-ActivitySet<-aggregate(AllData[, 2:67], list(AllData$desc_activity), mean)
-SubjectSet<-aggregate(AllData[, 2:67], list(AllData$subject_id), mean)
-
-# To convert from integer to character the first column of the SubjectSet
-# data frame to prepare for the merging of the rows of the ActivitySet:
-
-SubjectSet<-transform(SubjectSet,Group.1=as.character(Group.1))
-
-# Must also convert the Group.1 column to character class
-# to prevent NA values.
-
-TidySet<-rbind(ActivitySet,SubjectSet)
+TidySet<-aggregate(AllData[, 2:67], list(AllData$subject_id,AllData$desc_activity), mean)
 TidySet<-transform(TidySet,Group.1=as.character(Group.1))
 
 # To export TidySet data frame to a text file, install the

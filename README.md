@@ -1,8 +1,16 @@
 README.MD
-This file provides some details on how the run_analysis.R script works
+This file provides details on how the run_analysis.R script works.
+Generally, the run_analysis.R script does the following:
+1.  Captures the information from the input data text files into R data frames.
+2.  Merge the list of features as columns of the training and test data sets.
+3.  Merge the individual subject and activity identifiers to the training and data sets.
+4.  Captures the column numbers of the -mean() and -std() columns to prepare for aggregation.
+5.  Provides a descriptive activity name based on the activity indicator.
+6.  Perform the aggregation per subject individual - activity pair, calculating the mean for each column.
+7.  Create a text file based from the TidySet dataframe from Step 6.
 
 # Program Name: run_analysis.R
-# February 27, 2016
+# February 28, 2016
 
 library(dplyr)  
 
@@ -203,30 +211,12 @@ names(AllData)[70]<-"desc_activity"
 # Step #5 aims to create a second, independent tidy data set that contains the average
 # of each variable for each activity and each subject after (1) to (4).
 # Thus, the mean will be calculated from Columns 2 to 67.
-#
-# Resulting data frame is TidySet:
-# (a) The first six rows contain the mean of the variables per activity.
-#     This is also the information contained in the ActivitySet data frame.
-# (b) The rows that follow contain the mean of the variables per subject.
-#     This is also the information contained in the SubjectSet data frame.
-#####################################################################################
-
-# ActivitySet contains the averages for each column per activity
-# SubjectSet contains the averages for each column per individual subject
-
-ActivitySet<-aggregate(AllData[, 2:67], list(AllData$desc_activity), mean)
-SubjectSet<-aggregate(AllData[, 2:67], list(AllData$subject_id), mean)
-
-# To convert from integer to character the first column of the SubjectSet
-# data frame to prepare for the merging of the rows of the ActivitySet:
-
-SubjectSet<-transform(SubjectSet,Group.1=as.character(Group.1))
-
+######################################################################################
 
 # Must also convert the Group.1 column to character class
 # to prevent NA values.
 
-TidySet<-rbind(ActivitySet,SubjectSet)
+TidySet<-aggregate(AllData[, 2:67], list(AllData$subject_id,AllData$desc_activity), mean)
 TidySet<-transform(TidySet,Group.1=as.character(Group.1))
 
 # To export TidySet data frame to a text file, install the

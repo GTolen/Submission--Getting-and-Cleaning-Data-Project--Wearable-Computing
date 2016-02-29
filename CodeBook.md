@@ -140,26 +140,19 @@ Information from the input data files were stored in the following variables:
 10. AllData merges the rows from x_train and x_test, thus, combining the training
       and the test data.  The descriptive variable name for the activity is also
       added to the data frame.          
-11. ActivitySet calculates the average of each measurable column per activity using
-      the desc_activity column.
-12. SubjectSet calculates the average of each measurable column per individual subject
-      using the subject_id column.  Note that the Group.1 column needs to be transformed
-      into a character type before SubjectSet is merged with ActivitySet.
-13. TidySet combines the rows from SubjectSet and ActivitySet.  The final text output file,
-      "Output_Mean_Grouped.txt", is based on this data frame.
+11. TidySet calculates the average of each column for each subject individual - activity pair.  
+      The final text output file, "Output_Mean_Grouped.txt", is based on this data frame.
+      The subject individual data is stored in AllData$subject_id.
+      The activity data is stored in AllData$desc_activity.
 
 
-Note that the Group.1 column of the SubjectSet and TidySet data frames has been transformed into
-a character class to prevent NA values when merging rows and exporting to a text file,
-respectively.
-
-VARIABLES / COLUMNS OF THE OUTPUT TIDYSET DATA FRAME / TidySetColumns.txt FILE
+VARIABLES / COLUMNS OF THE OUTPUT TIDYSET DATA FRAME
 1. These are the output columns of the resulting data frame 'TidySet'.
 The information from the TidySet data frame is exported to "Output_Mean_Grouped.txt"
 with " " delimiter.
-2. Group.1 indicates which subset the mean value from each of the columns is associated to.
-This could be from one of the activities performed by the subject individuals, or
-a value from '1' to '30' (corresponding to the subject individual).     
+2. Group.1 and Group.2 indicate which subset the mean value from each of the columns is associated to.
+Group.1 corresponds to one of the 30 subject individuals.
+Group.2  corresponds to one of the activities performed by the subject individuals.
 3.  Columns/Variables listed below are the averages of the values of the -mean()
 and -std() columns for each group
 
