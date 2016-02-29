@@ -1,3 +1,9 @@
+---
+title: "CodeBook.md"
+author: "GTolen"
+date: "February 29, 2016"
+---
+
 CodeBook.MD
 for Getting and Cleaning Data Project
 GNTolentino, 28 Feb 2016

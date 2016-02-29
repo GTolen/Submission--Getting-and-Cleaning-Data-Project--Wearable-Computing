@@ -1,3 +1,8 @@
+---
+title: "README.md"
+author: "GTolen"
+date: "February 29, 2016"
+---
 README.MD
 This file provides details on how the run_analysis.R script works.
 Generally, the run_analysis.R script does the following:
