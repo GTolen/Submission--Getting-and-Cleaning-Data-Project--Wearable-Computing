@@ -10,12 +10,12 @@ output:
 
 ### This file provides details on how the run_analysis.R script works.  Generally, the run_analysis.R script does the following:
 #### 1.  Captures the information from the input data text files into R data frames.
-#### 2.  Merge the list of features as columns of the training and test data sets.
-#### 3.  Merge the individual subject and activity identifiers to the training and data sets.
+#### 2.  Merges the list of features as columns of the training and test data sets.
+#### 3.  Merges the individual subject and activity identifiers to the training and data sets.
 #### 4.  Captures the column numbers of the -mean() and -std() columns to prepare for aggregation.
 #### 5.  Provides a descriptive activity name based on the activity indicator.
-#### 6.  Perform the aggregation per subject individual - activity pair, calculating the mean for each column.
-#### 7.  Create a text file based from the TidySet dataframe from Step 6.
+#### 6.  Performs the aggregation per subject individual - activity pair, calculating the mean for each column.
+#### 7.  Creates a text file based from the TidySet dataframe from Step 6.
 #
 ##### Start of R Script
 ```{r}
@@ -27,9 +27,9 @@ library(dplyr)
 setwd("C:/Gary/Test/WearableComputing/Work")
 ```
 ##### Read features.txt and capture the complete list of variables of each vector
-##### Column V1: Count
-##### Column V2: Feature
-##### 561 entries: These are the column names of the text data files (X_train.txt and X_test.txt).
+* Column V1: Count
+* Column V2: Feature
+* 561 entries: These are the column names of the text data files (X_train.txt and X_test.txt).
 ```{r}
 features<-read.table("features.txt")
 class(features)
@@ -53,7 +53,6 @@ y_test<-read.table("y_test.txt")
 * subject_train: 
     * subject_train.txt: identifies the subject who performed the activity, 7,352 entries
     * values are 1, 3, 5, 6, 7, 8, 11, 14, 15, 16, 17, 19, 21, 22, 23 25, 26, 27, 28, 29, 30
-
 * TR_body_acc_x: 
     * body_acc_x_train.txt; 7352R x 128C records
     * body acceleration signal from smartphone X-axis obtained by subtracting the gravity from total acceleration
@@ -65,14 +64,12 @@ y_test<-read.table("y_test.txt")
 * TR_body_acc_z: body_acc_z_train.txt; 7352R x 128C records
     * body acceleration signal from smartphone Z-axis obtained by subtracting the gravity from total acceleration
     * 7352R x 128C records
-
 * TR_body_gyro_x: body_gyro_x_train.txt; 7352R x 128C records
     * angular velocity vector measured by gyroscope for each sample in radians/second for the X-axis   
 * TR_body_gyro_y: body_gyro_y_train.txt; 7352R x 128C records
     * angular velocity vector measured by gyroscope for each sample in radians/second in radians/second for the X-axis
 * TR_body_gyro_z: body_gyro_z_train.txt; 7352R x 128C records
     * angular velocity vector measured by gyroscope for each sample in radians/second in radians/second for the X-axis
-
 * TR_tot_acc_x: total_acc_x_train.txt; 7352R x 128C records
     * acceleration signal from smartphone accelerometer X axis in std gravity units
 * TR_tot_acc_y: total_acc_y_train.txt; 7352R x 128C records
@@ -106,7 +103,6 @@ subject_train<-read.table("subject_train.txt")
 * subject_test: 
     * subject_test.txt: identifies the subject who performed the activity, 2,947 entries
     * values are 2, 4, 9, 10, 12, 13, 18, 20, 24
-
 * TEST_body_acc_x: 
     * body_acc_x_test.txt; 2947R x 128C records
     * body acceleration signal from smartphone X-axis obtained by subtracting the gravity from total acceleration
@@ -119,7 +115,6 @@ subject_train<-read.table("subject_train.txt")
     * body_acc_z_test.txt; 2947R x 128C records
     * body acceleration signal from smartphone Z-axis obtained by subtracting the gravity from total acceleration
     * 7352R x 128C records
-
 * TEST_body_gyro_x: 
     * body_gyro_x_test.txt; 2947R x 128C records
     * angular velocity vector measured by gyroscope for each sample in radians/second for the X-axis   
@@ -129,7 +124,6 @@ subject_train<-read.table("subject_train.txt")
 * TEST_body_gyro_z: 
     * body_gyro_z_test.txt; 2947R x 128C records
     * angular velocity vector measured by gyroscope for each sample in radians/second for the X-axis
-
 * TEST_tot_acc_x: 
     * total_acc_x_train.txt; 2947R x 128C records
     * acceleration signal from smartphone accelerometer X axis in std gravity units
@@ -258,4 +252,4 @@ write.matrix(TidySet,file="Output_Mean_Grouped.txt",sep=" ")
 
 ```
 
-##### use rm(list=ls()) to remove variables from workspace when done using the data frames
+##### Used rm(list=ls()) to remove variables from workspace when done using the data frames
